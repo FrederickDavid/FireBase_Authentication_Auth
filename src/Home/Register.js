@@ -1,0 +1,157 @@
+import React from 'react'
+import styled from 'styled-components'
+import {app} from "../base"
+import {NavLink, useNavigate} from "react-router-dom"
+
+const AddScreen = () => {
+    const navigate = useNavigate()
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const registerUsers= async ()=>{
+       await app.auth().createUserWithEmailAndPassword(email, password)
+       navigate('/');
+    };
+    return (
+        <Container>
+            <Card>
+                <InputTab>
+                <Text>Email</Text>
+                <Input placeholder="Enter your Email" value={email}
+                onChange={(e)=>{
+                    setEmail(e.target.value)
+                }}  
+                />
+                </InputTab>
+                <InputTab>
+                <Text>Password</Text>
+                <Input placeholder="Enter your password" value={password}
+                onChange={(e)=>{
+                    setPassword(e.target.value)
+                }}
+                />
+                </InputTab>
+                <Add
+                onClick={()=>{
+                    registerUsers()
+                }}
+                >Register</Add>
+                <But>Sign in with Google</But>
+                <But>Sign in with GitHub</But>
+                <Info>Already have an account,<LinkTag to="/Login">Click here too Login</LinkTag > </Info>
+            </Card>
+        </Container>
+    )
+}
+
+export default AddScreen
+const LinkTag = styled(NavLink) `
+font-size: 12px;
+font-weight: bold;
+text-decoration: none;
+color: red;
+cursor: pointer;
+`
+
+const Info = styled.div `
+font-size: 12px;
+font-weight: bold;
+margin-top: 15px;
+text-decoration: none;
+/* span{
+    color: red;
+    cursor: pointer;
+} */
+`
+const Add = styled.div `
+width: 30%;
+height: 40px;
+background-color: red;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+margin-top: 10px;
+font-weight: bold;
+border-radius: 4px;
+transition: all 350ms;
+transform: scale(1);
+:hover{
+    cursor: pointer;
+    transform: scale(1.012);
+    /* color: red; */
+    box-shadow: 1px 1px 5px lightgray;
+}
+`
+const But = styled.div `
+width: 90%;
+height: 40px;
+background-color: blue;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+margin-top: 10px;
+font-weight: 600;
+border-radius: 4px;
+transition: all 350ms;
+transform: scale(1);
+:hover{
+    cursor: pointer;
+    transform: scale(1.012);
+    /* color: red; */
+    box-shadow: 1px 1px 5px lightgray;
+}
+`
+const InputTab = styled.div `
+width: 95%;
+height: 20%;
+/* background-color: lightgray; */
+margin-top: 7px;
+display: flex;
+flex-direction: column;
+align-items: center;
+`
+const Text = styled.div `
+width: 100%;
+height: auto;
+font-size: 13px;
+font-weight: bold;
+margin-bottom: 2px;
+`
+const Input = styled.input `
+width: 95%;
+height: 50%;
+outline: none;
+border-radius: 4px;
+border: 1px solid grey;
+`
+
+const Container = styled.div `
+width: 100%;
+height: auto;
+/* background-color: white; */
+margin-top: 50px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-wrap: wrap;
+`
+const Card = styled.div `
+width: 23%;
+height: 350px;
+border-radius: 6px;
+/* background-color: red; */
+margin: 30px;
+display: flex;
+align-items: center;
+flex-direction: column;
+border: 1px solid grey;
+/* transition: all 350ms;
+transform: scale(1); */
+:hover{
+    cursor: pointer;
+    /* transform: scale(1.012); */
+    /* color: red; */
+    box-shadow: 1px 1px 5px lightgray;
+}
+`
